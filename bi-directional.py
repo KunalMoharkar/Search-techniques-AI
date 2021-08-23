@@ -46,18 +46,34 @@ def getMoves(node1, node2):
     curr = node1
 
     while curr is not None:
-        print()
         FORWARD_MOVES.append(curr)
-        curr.printNode()
         curr = curr.parent
 
     curr = node2.parent
 
     while curr is not None:
-        print()
-        curr.printNode()
         BACKWARD_MOVES.append(curr)
         curr = curr.parent
+
+    SOLUTION_MOVES = []
+
+    while len(BACKWARD_MOVES)!=0:
+        SOLUTION_MOVES.append(BACKWARD_MOVES.pop())
+
+    while len(FORWARD_MOVES)!=0:
+        SOLUTION_MOVES.append(FORWARD_MOVES.pop(0))
+
+    start_node = SOLUTION_MOVES.pop(0)
+    prev_pos = start_node.getBlankTile()
+    start_node.printNode()
+
+    for x in SOLUTION_MOVES:
+        curr_pos = x.getBlankTile()
+    
+        print(f"\n\nmove blank from {prev_pos} to {curr_pos}")
+    
+        prev_pos = curr_pos
+        x.printNode()
 
 
 #create source node    
@@ -76,10 +92,10 @@ print("\n-----------------------------------------------GOAL STATE--------------
 goalNode.printNode()
 
 if res:
-    print("\n-----------------------------------------------INTERSECTION STATE--------------------------------------")
+    print("\n-------------------------------------------INTERSECTION STATE--------------------------------------")
     res[0].printNode()
 
-    print("\n---------------------------------------------MOVES SEQUENCE--------------------------------------")
+    print("\n-------------------------------------------MOVES SEQUENCE--------------------------------------")
     getMoves(res[0],res[1])
 
 else:
