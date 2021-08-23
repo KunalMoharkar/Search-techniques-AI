@@ -38,6 +38,7 @@ def iterative_deepening(srcNode):
             return True
 
     print("MAX DEPTH LIMIT EXCEEDED")
+    return False
 
 #print the moves by backtraking using parent pointers
 def getMoves():
@@ -71,8 +72,9 @@ def getMoves():
 #create source node    
 srcNode = Node(None, C.INPUT_STATE)
 #perform iterative deepening search
-iterative_deepening(srcNode)
+res = iterative_deepening(srcNode)
 #print the moves
-getMoves()
+if res:
+    getMoves()
 
 

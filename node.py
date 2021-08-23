@@ -21,6 +21,7 @@ class Node:
                 print(self.state[i][j], end="  ")
 
     #generate succesors of a node
+    #also sets the parent pointers accordingly
     def getSuccesors(self):
 
         res = []
