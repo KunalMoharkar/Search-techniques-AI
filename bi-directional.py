@@ -40,18 +40,23 @@ def bi_directional_search(srcNode, goalNode):
     return False
 
 def getMoves(node1, node2):
+
+    FORWARD_MOVES = []
+    BACKWARD_MOVES = []
     curr = node1
 
     while curr is not None:
         print()
+        FORWARD_MOVES.append(curr)
         curr.printNode()
         curr = curr.parent
 
-    curr = node2
+    curr = node2.parent
 
     while curr is not None:
         print()
         curr.printNode()
+        BACKWARD_MOVES.append(curr)
         curr = curr.parent
 
 
@@ -63,17 +68,21 @@ goalNode = Node(None, C.GOAL_STATE)
 
 res = bi_directional_search(srcNode,goalNode)
 
+
 print("\n-----------------------------------------------INITIAL STATE--------------------------------------")
 srcNode.printNode()
 
 print("\n-----------------------------------------------GOAL STATE--------------------------------------")
 goalNode.printNode()
 
-print("\n-----------------------------------------------INTERSECTION STATE--------------------------------------")
-res[0].printNode()
+if res:
+    print("\n-----------------------------------------------INTERSECTION STATE--------------------------------------")
+    res[0].printNode()
 
-print("\n---------------------------------------------MOVES SEQUENCE--------------------------------------")
-getMoves(res[0],res[1])
+    print("\n---------------------------------------------MOVES SEQUENCE--------------------------------------")
+    getMoves(res[0],res[1])
 
+else:
 
+    print("GIVEN PUZZLE IS NOT SOLVABLE")
 
