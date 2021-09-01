@@ -1,13 +1,22 @@
 import copy
 import constants as C
 
-
 #node class with members as current state and parent pointer
 class Node:
     def __init__(self, parent, state):
         self.parent = parent
         self.state = state
 
+    #custom hash func
+    #list cannot be hashed convert to tuple
+    def __hash__(self):
+        return hash(tuple(tuple(row) for row in self.state))
+
+    #custom equality method
+    def __eq__(self,other):
+        if isinstance(other, Node):
+            return self.state == other.state
+        
     def isGoalNode(self):
         return C.GOAL_STATE == self.state
 

@@ -1,16 +1,18 @@
 import constants as C
 from node import *
 
-#list cannot be hashed 
-#todo store states into visited as tuples to enable hashing 
+
 #function to check if current node has already been visited
 def check_visited(node, visited):
 
+    return node in visited
+
+# get the node from set to backtrack
+def get_node_from_set(node, visited):
+    
     for ele in visited: 
         if ele.state == node.state:
             return ele
-
-    return False
 
 #Bidirectional search
 def bi_directional_search(srcNode, goalNode):
@@ -29,6 +31,7 @@ def bi_directional_search(srcNode, goalNode):
         node = queue_goal_to_src.pop(0)
         res = check_visited(node,visited)
         if res:
+            res = get_node_from_set(node, visited)
             return node, res
 
         else:
@@ -44,7 +47,8 @@ def bi_directional_search(srcNode, goalNode):
             
             for s in succ:
                 #keep track of visited nodes in forward search
-                if s not in visited:
+                res = check_visited(s,visited)
+                if not res:
                     queue_src_to_goal.append(s)
                     visited.add(s)
             
@@ -115,5 +119,5 @@ if res:
 
 else:
 
-    print("GIVEN PUZZLE IS NOT SOLVABLE")
+    print("\n\nGIVEN PUZZLE IS NOT SOLVABLE \n")
 
